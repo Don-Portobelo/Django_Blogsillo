@@ -26,10 +26,10 @@
                         <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Resumen</a>
+                        <a class="nav-link" href="{% url 'c_resumenes' %}">Resumen</a>
                     </li>
                     <li class="nav-item">
-                        <a class="nav-link" href="">Críticas</a>
+                        <a class="nav-link" href="{% url 'c_criticas' %}">Críticas</a>
                     </li>
                     <li class="nav-item">
                         <a class="nav-link" href="{% url 'store_fantasia' %}">Tienda</a>
@@ -65,7 +65,7 @@
                         <p class="card-text">Sumergete en el caos infinito traido a nosotros por el avance tecnológico
                             de la humanidad, o descubre las posibles maravillas tecnológicas que nos trae el
                             futuro</p>
-                        <a href="CriticaC.html" class="btn btn-primary">Ver críticas disponibles</a>
+                        <a href="{% url 'criticas_ciencia' %}" class="btn btn-primary">Ver críticas disponibles</a>
                     </div>
                 </div>
             </div>
@@ -90,7 +90,7 @@
                         <h5 class="card-title text-center">Literatura chilena</h5>
                         <p class="card-text">Conoce a los grandes exponentes nacionales que nuestro país puede
                             ofrecer</p>
-                        <a href="{% url 'criticas_chilenas' %}" class="btn btn-primary">Ver críticfffas dispossssnibles</a>
+                        <a href="{% url 'criticas_chilenas' %}" class="btn btn-primary">Ver críticas disponibles</a>
                     </div>
                 </div>
             </div>

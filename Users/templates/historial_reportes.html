@@ -47,15 +47,18 @@
       </button>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
-          </li>
-          <li class="nav-item active">
-            <a class="nav-link" href="{% url 'historial_reportes' %}">Resumen</a>
-          </li>
-          <li class="nav-item">
-            <a class="nav-link" href="#">Críticas</a>
-          </li>
+            <li class="nav-item active" id="activo">
+                <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'c_resumenes' %}">Resumen</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'c_criticas' %}">Críticas</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{% url 'store_fantasia' %}">Tienda</a>
+            </li>
           <li class="nav-item">
             <a class="nav-link" href="{% url 'cuenta_admin' %}">Cuenta</a>
           </li>

@@ -30,6 +30,10 @@ def c_criticas(request):
     return render(request, 'c_criticas.html')
 
 
+def c_resumenes(request):
+    
+    return render(request, 'c_resumenes.html')
+
 def detalle_publicacion(request, id_publicacion):
     publicacion = get_object_or_404(Publicacion, pk=id_publicacion)
     context = {
@@ -49,6 +53,42 @@ def criticas_fantasia(request):
 def criticas_chilenas(request):
     # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
     publicaciones = Publicacion.objects.filter(es_resumen=False, id_libro__categoria__nombre_categoria='Literatura Chilena')
+
+    context = {
+        'publicaciones': publicaciones
+    }
+    return render(request, 'criticas_fantasia.html', context)
+
+def criticas_ciencia(request):
+    # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
+    publicaciones = Publicacion.objects.filter(es_resumen=False, id_libro__categoria__nombre_categoria='Ciencia Ficcion')
+
+    context = {
+        'publicaciones': publicaciones
+    }
+    return render(request, 'criticas_fantasia.html', context)
+
+def resumenes_fantasia(request):
+    # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
+    publicaciones = Publicacion.objects.filter(es_resumen=True, id_libro__categoria__nombre_categoria='Fantasia')
+
+    context = {
+        'publicaciones': publicaciones
+    }
+    return render(request, 'criticas_fantasia.html', context)
+
+def resumenes_chilenas(request):
+    # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
+    publicaciones = Publicacion.objects.filter(es_resumen=True, id_libro__categoria__nombre_categoria='Literatura Chilena')
+
+    context = {
+        'publicaciones': publicaciones
+    }
+    return render(request, 'criticas_fantasia.html', context)
+
+def resumenes_ciencia(request):
+    # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
+    publicaciones = Publicacion.objects.filter(es_resumen=True, id_libro__categoria__nombre_categoria='Ciencia Ficcion')
 
     context = {
         'publicaciones': publicaciones

@@ -43,7 +43,12 @@ urlpatterns = [
     path('editar_perfil/', users_views.editar_perfil, name='editar_perfil'),
     path('c_criticas/', publicar_views.c_criticas, name='c_criticas'),
     path('criticas_fantasia/', publicar_views.criticas_fantasia, name='criticas_fantasia'),
-     path('criticas_chilenas/', publicar_views.criticas_chilenas, name='criticas_chilenas'),
+    path('criticas_chilenas/', publicar_views.criticas_chilenas, name='criticas_chilenas'),
+    path('criticas_ciencia/', publicar_views.criticas_ciencia, name='criticas_ciencia'),
+    path('c_resumenes/', publicar_views.c_resumenes, name='c_resumenes'),
+    path('resumenes_fantasia/', publicar_views.resumenes_fantasia, name='resumenes_fantasia'),
+    path('resumenes_chilenas/', publicar_views.resumenes_chilenas, name='resumenes_chilenas'),
+    path('resumenes_ciencia/', publicar_views.resumenes_ciencia, name='resumenes_ciencia'),
     path('publicacion/<int:id_publicacion>/', publicar_views.detalle_publicacion, name='detalle_publicacion'),
 ]
 
