@@ -1,0 +1,88 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQ">
+    <link rel="stylesheet" href="{% static 'CSS/Fantasia.css' %}">
+    <script src="{% static 'Validaciones/Carro_compra.js' %}"></script>
+    <script src="https://sdk.mercadopago.com/js/v2"></script>
+    <title>Libros de Fantasia</title>
+    <script>
+        function agregarAlCarrito(libroId, nombreLibro, precioLibro) {
+            fetch("{% url 'Add' 0 %}".replace("0", libroId), {
+                method: 'POST',
+                headers: {
+                    'Content-Type': 'application/json',
+                    'X-CSRFToken': '{{ csrf_token }}'
+                },
+                body: JSON.stringify({
+                    'libro_id': libroId,
+                    'nombre_libro': nombreLibro,
+                    'precio_libro': precioLibro
+                })
+            })
+            .then(response => response.json())
+            .then(data => {
+                console.log(`Agregando ${nombreLibro} al carrito con ID ${libroId} y precio ${precioLibro}`);
+                // Aquí deberías actualizar visualmente el carrito en la página de la tienda
+                // Por ejemplo, podrías actualizar el número de ítems en el carrito o el total
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
+        }
+    
+        function irAlCheckout() {
+            window.location.href = "{% url 'checkout' %}";
+        }
+    </script>
+    
+</head>
+<body>
+    <header>
+        <h1>Libros de Fantasia</h1>
+    </header>
+
+    <nav>
+        <ul>
+          <li class="left"><a href="{% url 'inicio' %}">Inicio</a></li>
+          <li><a href="{% url 'store_fantasia'%}">Fantasia</a></li>
+          <li><a href="{% url 'store_ficcion'%}">Ficcion</a></li>
+          <li><a href="{% url 'store_clasica'%}">Clasica</a></li>
+          <li class="right"><a href="{% url 'login'%}">Inicio de sesion</a></li>
+        </ul>
+    </nav>
+
+    <section class="contenedor">
+        <div class="contenedor-items">
+            {% for libro in libros %}
+            <div class="item">
+                <span class="titulo-item">{{ libro.nombre_libro }}</span>
+                <img src="{{ libro.portada.url }}" alt="{{ libro.nombre_libro }}" class="img-item">
+                <span class="precio-item">${{ libro.precio }}</span>
+                <!-- Ejemplo de botón para agregar un libro al carrito -->
+                <button onclick="agregarAlCarrito({{ libro.id_libro }}, '{{ libro.nombre_libro }}', {{ libro.precio }})">
+                    Agregar al carrito
+                </button>
+
+            </div>
+            {% endfor %}
+        </div>
+        {% block content %}
+    <!-- Contenido existente -->
+    
+    
+    
+   
+    
+    <!-- Contenido existente -->
+    {% include "carrito.html" %}
+{% endblock %}
+        
+    </section>
+</body>
+<script src="{% static 'Validaciones/Carro_compra.js' %}"></script>
+</html>

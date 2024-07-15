@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Formulario de Libros</title>
+    <style>
+        body {
+            background-image: url('https://wallpapercave.com/wp/wp3432014.jpg');
+            background-size: cover;
+            background-position: center;
+            font-family: Arial, sans-serif;
+            color: white;
+            margin: 0;
+            padding: 0;
+        }
+        .container {
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+        form {
+            background-color: rgba(0, 0, 0, 0.5);
+            padding: 20px;
+            border-radius: 10px;
+            width: 80%;
+            max-width: 500px;
+            margin: auto;
+        }
+        label {
+            display: block;
+            margin-bottom: 10px;
+        }
+        input, select, textarea {
+            width: calc(100% - 16px);
+            padding: 8px;
+            margin-bottom: 10px;
+            border: none;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+        input[type="submit"], input[type="button"] {
+            background-color: #007bff;
+            color: white;
+            cursor: pointer;
+            width: 45%;
+            height: 40px;
+            border: none;
+            border-radius: 5px;
+        }
+        input[type="submit"] {
+            float: left;
+            margin-right: 10px;
+        }
+        input[type="button"] {
+            float: right;
+        }
+    </style>
+    <script>
+        function validarFormulario() {
+            var categoria = document.getElementById("id_categoria").value;
+            var autor = document.getElementById("id_autor").value;
+            var nombreLibro = document.getElementById("id_nombre_libro").value;
+            var fechaPublicacion = document.getElementById("id_fecha_publicacion").value;
+            var disponibleVenta = document.getElementById("id_disponible_para_venta").checked;
+            var precio = document.getElementById("id_precio").value;
+            var portada = document.getElementById("id_portada").files[0];
+            var resumen = document.getElementById("id_resumen").value;
+
+            if (autor.length < 1 || autor.length > 100 || /\d/.test(autor)) {
+                alert("El autor debe tener entre 1 y 100 caracteres y no contener números.");
+                return false;
+            }
+
+            if (nombreLibro.length < 1 || nombreLibro.length > 150) {
+                alert("El nombre del libro debe tener entre 1 y 150 caracteres.");
+                return false;
+            }
+
+            var fechaRegEx = /^\d{4}-\d{2}-\d{2}$/;
+            if (!fechaPublicacion.match(fechaRegEx) || new Date(fechaPublicacion) > new Date()) {
+                alert("La fecha de publicación debe ser una fecha válida y no futura.");
+                return false;
+            }
+
+            if (disponibleVenta && (isNaN(precio) || precio <= 0)) {
+                alert("El precio debe ser un número positivo si el libro está disponible a la venta.");
+                return false;
+            }
+
+            if (portada && !["image/jpeg", "image/png"].includes(portada.type)) {
+                alert("La portada debe ser una imagen en formato .jpg o .png.");
+                return false;
+            }
+
+            if (resumen.length < 50 || resumen.length > 5000) {
+                alert("El resumen debe tener entre 50 y 5000 caracteres.");
+                return false;
+            }
+
+            return true;
+        }
+    </script>
+</head>
+<body>
+
+<div class="container">
+    <h2>Ingresar Nuevo Libro</h2>
+    <form method="post" enctype="multipart/form-data" onsubmit="return validarFormulario()">
+        {% csrf_token %}
+        {{ form.as_p }}
+        <input type="submit" value="Guardar Libro">
+        <input type="button" value="Regresar" onclick="window.location.href='administrador.html'">
+    </form>
+</div>
+
+</body>
+</html>

@@ -1,0 +1,50 @@
+<div class="alert alert-primary" role="alert">
+    <table class="table table-bordered">
+        <thead>
+            <tr>
+                <th scope="row" colspan="3" class="text-center">CARRITO</th>
+            </tr>
+            <tr>
+                <th scope="col">NOMBRE</th>
+                <th scope="col">PRECIO</th>
+                <th scope="col">CANTIDAD</th>
+            </tr>
+        </thead>
+        <tbody>
+            {% if carrito %}
+                {% for key, value in carrito.items %}
+                    <tr>
+                        <td>{{ value.nombre }}</td>
+                        <td>$ {{ value.acumulado }}</td>
+                        <td>
+                            {{ value.cantidad }}
+                            {% if value.libro_id %}
+                                <a href="{% url 'Add' value.libro_id %}" class="badge btn btn-dark badge-dark">+</a>
+                                <a href="{% url 'Sub' value.libro_id %}" class="badge btn btn-dark badge-dark">-</a>
+                            {% else %}
+                                <!-- Mostrar algún mensaje de error o manejar el caso en que libro_id está vacío -->
+                                <span class="text-danger">ID de libro no disponible</span>
+                            {% endif %}
+                        </td>
+
+                    </tr>
+                {% endfor %}
+            {% else %}
+                <tr>
+                    <td colspan="3">
+                        <div class="alert alert-danger text-center"> Sin Productos </div>
+                    </td>
+                </tr>
+            {% endif %}
+            <tr>
+                <th scope="row">Total:</th>
+                <td colspan="2">$ {{ total_carrito }}</td>
+            </tr>
+        </tbody>
+    </table>
+    <hr>
+</div>
+<div class="row text-center">
+    <div class="col-6"><a href="{% url 'CLS' %}" class="btn btn-danger">Limpiar</a></div>
+    <div class="col-6"><a href="{% url 'finalizar_compra' %}" class="btn btn-success">Finalizar Compra</a></div>
+</div>

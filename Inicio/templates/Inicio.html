@@ -1,0 +1,200 @@
+{% load static %}
+<!DOCTYPE html>
+<html>
+
+<head>
+    <title>Inicio</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link rel="stylesheet" href="{% static 'CSS/Inicio.css' %}">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    <style>
+        #formularioConsulta {
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background-color: white;
+            padding: 20px;
+            color: #0f0f23;
+            box-shadow: 0 0 10px rgba(0,0,0,0.5);
+            z-index: 999;
+        }
+    </style>
+</head>
+
+<body>
+    <header>
+        <!-- Navbar -->
+        <nav class="navbar navbar-expand-lg navbar-dark bg-gray navbar-lg" id="banana" style="height: 75px;">
+            <img src="{% static 'Imagenes/Bruma Banner.png' %}" alt="Sin Imagen">
+            <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+                <span class="navbar-toggler-icon"></span>
+            </button>
+            <div class="collapse navbar-collapse" id="navbarNav">
+                <ul class="navbar-nav">
+                    <li class="nav-item active" id="activo">
+                        <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="">Resumen</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'c_criticas' %}">Críticas</a>
+                    </li>
+                    <li class="nav-item">
+                        <a class="nav-link" href="{% url 'store_fantasia' %}">Tienda</a>
+                    </li>
+                    
+                    {% if request.user.is_authenticated %}
+                        {% if request.user.is_staff %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'cuenta_admin' %}">Mi Cuenta</a>
+                            </li>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'cuenta_usuario' %}">Mi Cuenta</a>
+                            </li>
+                        {% endif %}
+                    {% else %}
+                        <li class="nav-item">
+                            <a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Ingresar</a>
+                        </li>
+                    {% endif %}
+                </ul>
+            </div>
+        </nav>
+    </header>
+
+    <div class="container text-center my-4" id="titulo">
+        <h1 class="display-4">Inicio</h1>
+        <hr class="my-4">
+    </div>
+
+    
+   <div class="container">
+    <div class="row justify-content-center mt-4">
+        <div class="col-md-10 col-lg-8 col-xl-5" id="carro">
+            <div class="imagen">
+                <div id="carouselExampleIndicators" class="carousel slide" data-ride="carousel">
+                    <ol class="carousel-indicators">
+                        <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="1"></li>
+                        <li data-target="#carouselExampleIndicators" data-slide-to="2"></li>
+                    </ol>
+                    <div class="carousel-inner">
+                        <div class="carousel-item active">
+                            <a href="R-lll.html">
+                                <img src="{% static 'Imagenes/alicia-en-pais-maravillas.jpg' %}" class="d-block w-100" alt="Libro destacado 1" style="object-fit: cover;"
+                                    data-texto="Nuevo texto para la imagen 1">
+                                <div class="carousel-caption">
+                                    <p class="texto">Aventurate en el impresionante y fantastico mundo de Alicia</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="R-Imperio.html">
+                                <img src="{% static 'Imagenes/el-hobbit-crítica-a-la-trilogia-scaled.jpg' %}" class="d-block w-100" alt="Libro destacado 2" style="object-fit: cover;"
+                                    data-texto="Nuevo texto para la imagen 2">
+                                <div class="carousel-caption">
+                                    <p class="texto">El llamado de Bilbo a la aventura no se hara esperar, entra y enterate que tal lo hizo Bilbo en su viaje</p>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="carousel-item">
+                            <a href="R-Hobbit.html">
+                                <img src="{% static 'Imagenes/MistBorn Japones.webp' %}" class="d-block w-100" alt="Libro destacado 3" style="object-fit: cover;"
+                                    data-texto="Nuevo texto para la imagen 3">
+                                <div class="carousel-caption">
+                                    <p class="texto" >Un clasico de Sanderson, el inicio de la saga MistBorn</p>
+                                </div>
+                            </a>
+                        </div>
+                    </div>
+                    <a class="carousel-control-prev" href="#carouselExampleIndicators" role="button" data-slide="prev">
+                        <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Anterior</span>
+                    </a>
+                    <a class="carousel-control-next" href="#carouselExampleIndicators" role="button" data-slide="next">
+                        <span class="carousel-control-next-icon" aria-hidden="true"></span>
+                        <span class="sr-only">Siguiente</span>
+                    </a>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+          <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-5 col-xl-5 mx-auto">
+              <div class="card bg-purple text-center">
+                <div class="card-body">
+                  <p class="card-text">
+                    En este blog se pretende dar cabida a todas esas personas consumidas por la lectura que desean compartir esa pasion con otras personas de gustos similares. 
+                    Como se pretende crear una especie de ciber comunidad tendremos diferentes secciones para su entretenimiento, tal como resumenes sin spoilers, para que puedas decidir sin miedo 
+                    el libro que más te guste. <p>Tambien tendremos una seccion para elegir alguna categoria literaria, quizas te encuentres con una sorpresa 
+                    Obviamente cada uno de ustedes es una voz a escuchar, por lo cual para aquellos que esten suscritos mensualmente a la pagina tendran, no solo acceso a las diversas reseñas que se encuentran
+                    sitio web, sino que ademas podras crear tu propia reseña y/o resumen, dependiendo que tan bien es recibido tu trabajo por el publico es que tanta reputacion puedes ganar aca. </p>
+                    
+                  </p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+        </div>
+
+        
+      
+      
+      <script>
+        var textos = [
+          'Ha llegado desde una puerta muy pequeña el resumen de Alicia en el pais de las maravillas',
+          'Nuevo texto para la imagen 2',
+          'Nuevo texto para la imagen 3'
+        ];
+        
+        $('#carouselExampleIndicators').on('slide.bs.carousel', function (e) {
+        var activeIndex = $(e.target).find('.carousel-item.active').index();
+          var newText = $(e.relatedTarget).find('img').data('texto');
+        $('.texto p').text(newText);
+        });
+      </script>
+
+<footer style="background-color: #0f0f23; color: #ffffff; padding: 20px; background-image: url('https://wallpapercave.com/wp/wp3432014.jpg'); text-align: center; font-family: 'Orbitron', sans-serif; font-size: 18px;">
+    <h2 style="color: #fff; font-size: 26px; margin-bottom: 20px;">Pie de página</h2>
+    <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+      <div style="width: 33%; margin-bottom: 20px;">
+        <h3 style="color: #fff; font-size: 22px; margin-bottom: 10px;">Reglas del Blog</h3>
+        <ul style="list-style: none; margin: 0; padding: 0;">
+          <li>Respetar a los demás usuarios</li>
+          <li>No publicar contenido ofensivo</li>
+          <li>No spamear reportes</li>
+        </ul>
+      </div>
+      <div style="width: 33%; margin-bottom: 20px;">
+        <h3 style="color: #fff; font-size: 22px; margin-bottom: 10px;">Preguntas frecuentes</h3>
+        <ul style="list-style: none; margin: 0; padding: 0;">
+          <li><strong>¿Cómo puedo contactar al administrador?</strong> Puedes enviar un correo electrónico a Eladmin@baneoloqueveo.com</li>
+          <li><strong>¿Se permite publicar enlaces externos?</strong> Sí, siempre y cuando estén relacionados con el tema y no sean spam</li>
+          <li><strong>¿Puedo publicar contenido protegido por derechos de autor?</strong> No, no se permite publicar contenido protegido por derechos de autor sin autorización</li>
+        </ul>
+      </div>
+      <div style="width: 33%; margin-bottom: 20px;">
+        <h3 style="color: #fff; font-size: 22px; margin-bottom: 10px;">Síguenos en las redes sociales</h3>
+        <ul style="list-style: none; margin: 0; padding: 0;">
+          <li><a href="https://twitter.com/elonmusk?ref_src=twsrc%5Egoogle%7Ctwcamp%5Eserp%7Ctwgr%5Eauthor" style="color: #999999;">Twitter</a></li>
+          <li><a href="https://www.facebook.com/groups/ElonMusk/?locale=es_LA" style="color: #b1b0b0;">Facebook</a></li>
+          <li><a href="https://www.instagram.com/elonmusk/?hl=es" style="color: #a7a7a7;">Instagram</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <script src="js/saldo-bip.js"></script>
+</body>
+
+</html>

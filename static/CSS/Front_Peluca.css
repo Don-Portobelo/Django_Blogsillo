@@ -1,0 +1,132 @@
+body {
+  background-color: #141414;
+  font-family: 'Roboto', sans-serif;
+  color: #ffffff;
+}
+
+@font-face {
+  font-family: 'Orbitron';
+  src: url('Fuentes\Orbitron\Orbitron-VariableFont_wght.ttf') format('truetype');
+}
+
+.header {
+  background-color: #1d1d1d;
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.logo {
+  font-size: 32px;
+  font-weight: bold;
+  color: #ffffff;
+}
+
+nav ul {
+  display: flex;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+nav li {
+  margin-left: 20px;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.hero {
+  background-image: url('hero-background.jpg');
+  background-size: cover;
+  height: 600px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  color: #ffffff;
+}
+
+.hero h1 {
+  font-size: 64px;
+  margin-bottom: 20px;
+}
+
+.cta {
+  background-color: #c1292e;
+  color: #ffffff;
+  padding: 20px;
+  text-align: center;
+  margin-top: 100px;
+}
+
+.cta h2 {
+  font-size: 36px;
+  margin-bottom: 20px;
+}
+
+.cta a {
+  background-color: #ffffff;
+  color: #c1292e;
+  padding: 10px 20px;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.cta a:hover {
+  background-color: #c1292e;
+  color: #ffffff;
+}
+
+.categories {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  margin-top: 100px;
+}
+
+.category {
+  margin: 20px;
+  text-align: center;
+  width: 300px;
+  height: 400px;
+  position: relative;
+  overflow: hidden;
+  border-radius: 5px;
+}
+
+.category img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+.category h3 {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  background-color: rgba(0, 0, 0, 0.6);
+  padding: 20px;
+  margin: 0;
+}
+
+.category a {
+  color: #ffffff;
+  text-decoration: none;
+  font-weight: bold;
+  font-size: 20px;
+}
+
+.category:hover img {
+  transform: scale(1.1);
+}

@@ -1,0 +1,136 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Historial de Reportes</title>
+    <link rel="stylesheet" href="{% static 'CSS/Inicio.css' %}">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        #mi-cuenta {
+            margin: 0 auto;
+            margin-top: 10px;
+        }
+        #titulo-tabla {
+            text-align: center;
+            margin-bottom: 20px;
+            color: aliceblue;
+            display: inline-block;
+            border-bottom: 4px solid rgb(255, 255, 255);
+            border-bottom-width: fit-content;
+            border-bottom: auto;
+        }
+        /* Estilos generales para la tabla */
+        .table {
+            color: white; /* Color de texto blanco para toda la tabla */
+        }
+        .table thead th {
+            color: white; /* Color de texto blanco para los encabezados de la tabla */
+        }
+        .table tbody td {
+            color: white; /* Color de texto blanco para las celdas de la tabla */
+        }
+        .text-white {
+            color: white;
+        }
+
+    </style>
+</head>
+<body>
+
+<header>
+    <nav class="navbar navbar-expand-lg navbar-dark  navbar-custom" id="banana">
+      <img src="{% static 'Imagenes/Bruma Banner.png' %}" alt="Sin Imagen">
+      <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+      </button>
+      <div class="collapse navbar-collapse" id="navbarNav">
+        <ul class="navbar-nav">
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'inicio' %}">Inicio</a>
+          </li>
+          <li class="nav-item active">
+            <a class="nav-link" href="{% url 'historial_reportes' %}">Resumen</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="#">Críticas</a>
+          </li>
+          <li class="nav-item">
+            <a class="nav-link" href="{% url 'cuenta_admin' %}">Cuenta</a>
+          </li>
+        </ul>
+      </div>
+    </nav>
+  </header>
+
+<!-- Sección Mi cuenta -->
+<section id="mi-cuenta" class="bg-dark py-5 col-xs-11 col-sm-11 col-md-11 col-lg-8 col-xl-8 col-xxl-7">
+    <div class="container text-center col-xs-9 col-sm-10 col-md-9 col-lg-10 col-xl-10 col-xxl-11">
+        <h2 class="text-center" id="titulo-tabla">Historial de Reportes</h2>
+        <div class="table-responsive">
+            <table class="table table-bordered table-striped">
+                <thead class="thead-dark">
+                    <tr>
+                        <th>Título del Reporte</th>
+                        <th>Motivo</th>
+                        <th>Datos del Motivo</th>
+                        <th>Cuerpo del Reporte</th>
+                        <th>Usuario</th>
+                    </tr>
+                </thead>
+                <tbody id="tabla-reportes">
+                    <!-- Aquí se cargarán dinámicamente los reportes -->
+                </tbody>
+            </table>
+        </div>
+        <div class="text-center my-4">
+            <button type="button" class="btn btn-primary" id="cargar-historial">Cargar Historial</button>
+        </div>
+        <div class="text-center my-4">
+            <button type="button" class="btn btn-primary"><a class="text-white" href="{% url 'cuenta_admin' %}">Volver a la pantalla anterior</a></button>
+        </div>
+    </div>
+</section>
+
+<script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+<script>
+    $(document).ready(function() {
+        $('#cargar-historial').click(function() {
+            $.ajax({
+                url: '/cargar_reportes/',
+                type: 'GET',
+                dataType: 'json',
+                success: function(data) {
+                    console.log(data);  // Verifica los datos en la consola del navegador
+                    if (data.reportes) {
+                        mostrarReportes(data.reportes);
+                    } else {
+                        console.error('No se recibieron reportes válidos.');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error en la solicitud AJAX:', status, error);
+                }
+            });
+        });
+
+        function mostrarReportes(reportes) {
+            var tabla = $('#tabla-reportes');
+            tabla.empty();  // Vaciar la tabla antes de agregar nuevos datos
+
+            reportes.forEach(function(reporte) {
+                var row = $('<tr>');
+                row.append($('<td>').addClass('text-white').text(reporte.titulo_reporte));
+                row.append($('<td>').addClass('text-white').text(reporte.motivo));
+                row.append($('<td>').addClass('text-white').text(reporte.datos_motivo));
+                row.append($('<td>').addClass('text-white').text(reporte.cuerpo_reporte));
+                row.append($('<td>').addClass('text-white').text(reporte.usuario__username));
+                tabla.append(row);
+            });
+        }
+    });
+</script>
+
+</body>
+</html>

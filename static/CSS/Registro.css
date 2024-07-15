@@ -1,0 +1,242 @@
+body {
+  background-color: #111111;
+  color: #ffffff;
+  font-family: Arial, sans-serif;
+  font-size: 16px;
+  line-height: 1.6;
+  margin: 0;
+  padding: 0;
+}
+.btn-primary {
+  background-color: rgb(32, 34, 32);
+  margin: 5px;
+  border-color: #111111;
+}
+
+.btn-primary:hover {
+  background-color: #d91e18;
+  border-color: #d91e18;
+  color: #ffffff
+}
+
+.card{
+  
+  background-color: #5a5858;
+  border-color: #62198d;
+  font-family: Arial, sans-serif;
+  margin: 100px;
+}
+
+/* Estilo para la barra de búsqueda */
+.form-control {
+background-color: #1c1c1c;
+border-color: #5e5e5e;
+color: #c7c7c7;
+width: 50%;
+margin: 0 auto;
+text-align: center;
+}
+
+
+.forum-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  }
+  
+  .forum-card {
+  flex: 0 0 30%;
+  margin: 20px;
+  }
+
+
+
+
+
+
+.card-description {
+  display: none;
+}
+
+.card:hover .card-description {
+  display: block;
+  background-color: #6e6c6c;
+}
+
+.card-img-top {
+  height: 300px auto;
+  object-fit: cover;
+}
+
+.card-warhammer {
+  background-color: #2d2d2d;
+  color: #c6c6c6;
+  border-color: #a89b7e;
+}
+
+.card-header-warhammer {
+background-color: #211e1a;
+color: #c6c6c6;
+border-color: #a89b7e;
+}
+
+.card-title-warhammer {
+color: #c6c6c6;
+font-size: 28px;
+font-weight: bold;
+text-align: center;
+}
+
+.card-body-warhammer {
+padding: 1rem;
+background-color: #211e1a;
+border-top: 1px solid #a89b7e;
+color: #c6c6c6;
+font-size: 14px;
+text-align: center;
+}
+
+.card-img-top {
+  height: 400px;
+  width: auto;
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.card-warhammer:hover {
+border-color: #c6c6c6;
+}
+
+.card-title-warhammer:hover {
+color: #c6c6c6;
+}
+
+.card-body-warhammer:hover {
+background-color: #2d2d2d;
+}
+
+
+.card-header {
+  padding: 10px 20px; /* ajusta el padding a tu gusto */
+}
+
+.card-title {
+   /* color de fondo */
+  width: 50%; /* ajusta el ancho del título a tu gusto */
+  margin: 0 auto; /* centrar horizontalmente */
+  padding: 5px 10px; /* ajusta el padding a tu gusto */
+}
+
+
+.banner {
+  
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 0px; /* ajusta el tamaño de tu banner */
+  margin: 0;
+  padding: 0;
+}
+#banana {
+  background-color: #21193d;
+ 
+  top: 61px;
+  left: 0;
+  width: 100%;
+  height: 50px; /* ajusta el tamaño de tu banner */
+  margin: 0;
+  padding: 20px;
+}
+
+
+
+.dino-game {
+  width: 500px;
+  height: 300px;
+  border: 5px solid #ccc;
+  border-radius: 10px;
+  position: relative;
+  overflow: hidden;
+}
+
+.dino-game iframe {
+  position: absolute;
+  width: 100%;
+  height: 100%;
+  z-index: 999;
+}
+
+
+
+.container {
+  
+  max-width: 2000px;
+  margin: 60px ;
+  padding: 20px;
+  text-align: center;
+  padding-top: 50px;
+  padding-bottom: 50px;
+}
+h1 {
+  font-size: 36px;
+  margin-top: 0;
+  margin-bottom: 20px;
+}
+p {
+  margin-bottom: 20px;
+}
+.like-button, .dislike-button, .report-button {
+  background-color: transparent;
+  border: none;
+  color: #fff;
+  cursor: pointer;
+  font-size: 20px;
+  margin-right: 10px;
+  outline: none;
+  padding: 0;
+}
+.like-button:hover, .dislike-button:hover, .report-button:hover {
+  color: #00ff00;
+}
+.like-button:focus, .dislike-button:focus, .report-button:focus {
+  color: #00ff00;
+  text-shadow: 0px 0px 10px #00ff00;
+}
+.like-button:active, .dislike-button:active, .report-button:active {
+  color: #00ff00;
+  text-shadow: 0px 0px 10px #00ff00;
+}
+.like-button:focus, .dislike-button:focus, .report-button:focus {
+  outline: none;
+}
+.report-button {
+  color: #ff0000;
+}
+.book-cover {
+  display: block;
+  margin: 0 auto;
+  max-width: 300px;
+  width: 100%;
+}
+
+.anuncios-lista {
+  position: absolute;
+  top: 120px;
+  right: 20px;
+  padding: 0;
+  margin: 0 auto;
+  list-style: none;
+  background-color: #222;
+  color: #fff;
+  font-family: Arial, sans-serif;
+  font-size: 18px;
+  width: 200px auto;
+}
+.anuncios-lista li {
+  padding: 10px;
+  border-bottom: 1px solid #444;
+}
+.anuncios-lista li:last-child {
+  border-bottom: none;
+}

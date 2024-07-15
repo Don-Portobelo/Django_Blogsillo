@@ -1,0 +1,62 @@
+{% load static %}
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.2.1/css/all.min.css" integrity="sha512-MV7K8+y+gLIBoVD59lQ">
+    <link rel="stylesheet" href="{% static 'CSS/Fantasia.css' %}">
+    <title>Checkout</title>
+</head>
+<body>
+    <header>
+        <h1>Libros de Fantasía</h1>
+    </header>
+
+    <nav>
+        <ul>
+          <li class="left"><a href="{% url 'inicio' %}">Inicio</a></li>
+          <li><a href="{% url 'store_fantasia' %}">Fantasía</a></li>
+          <li><a href="">Ficción</a></li>
+          <li><a href="">Clásica</a></li>
+          <li class="right"><a href="{% url 'login' %}">Inicio de sesión</a></li>
+        </ul>
+    </nav>
+    
+    <section class="contenedor">
+        <div class="contenedor-items">
+            <h2>Checkout</h2>
+
+            <!-- Mostrar los libros en el carrito -->
+            <h3>Detalles del Carrito</h3>
+            <ul>
+                {% if carrito %}
+                    {% for key, value in carrito.items %}
+                        <li>
+                            {{ value.nombre }} - Cantidad: {{ value.cantidad }} - Subtotal: ${{ value.acumulado }}
+                        </li>
+                    {% endfor %}
+                {% else %}
+                    <li>No hay libros en el carrito.</li>
+                {% endif %}
+            </ul>
+
+            <!-- Mostrar el total del carrito -->
+            <h3>Total del Carrito: ${{ total_carrito }}</h3>
+        
+            <!-- Formulario para completar la orden de compra -->
+            <form method="post">
+                {% csrf_token %}
+                <div class="form-group">
+                    <label for="id_correo_usuario">Correo Electrónico Registrado</label>
+                    {{ form.correo_usuario }}
+                    <small id="correoHelp" class="form-text text-muted">Ingresa el correo electrónico registrado en la plataforma.</small>
+                </div>
+        
+                <button type="submit" class="btn btn-primary">Confirmar Compra</button>
+            </form> 
+        </div>
+    </section>
+</body>
+</html>

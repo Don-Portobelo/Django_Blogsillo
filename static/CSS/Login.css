@@ -1,0 +1,49 @@
+body {
+  /* Establece la imagen de fondo y configura su visualización */
+  background-image: url('https://wallpapercave.com/wp/wp3432014.jpg'); /* Selecciona la imagen de fondo del inicio de sesión */
+  background-size: cover; /* Cubre todo el área del elemento con la imagen */
+  background-position: center; /* Centra la imagen */
+  background-repeat: no-repeat; /* Evita que la imagen se repita */
+  /* Otros estilos adicionales */
+  font-family: Arial, sans-serif; /* Establece la fuente de texto */
+  color: #333; /* Establece el color de texto */
+}
+
+.container {
+  display: flex; /* Convierte el contenedor en un elemento flex */
+  justify-content: center; /* Centra horizontalmente el contenido */
+  align-items: center; /* Centra verticalmente el contenido */
+  min-height: 100vh; /* Establece la altura mínima para que el contenedor ocupe toda la altura de la ventana */
+}
+
+.card {
+  min-width: 500px; /* Establece un ancho minimo para la tarjeta */
+  max-width: auto;
+  margin: 0 auto; /* Centra la tarjeta horizontalmente dentro del contenedor */
+  background-color: rgba(0, 0, 0, 0.7); /* Fondo semitransparente para resaltar sobre la imagen de fondo */
+  color: #fff; /* Color del texto dentro de la tarjeta */
+  border: none; /* Elimina el borde de la tarjeta */
+  border-radius: 100px;
+  overflow: hidden;
+}
+
+.card-header {
+  background-color: #22222293; /* Color de fondo del encabezado */
+  border-bottom: none; /* Elimina el borde inferior del encabezado */
+}
+
+.form-control {
+  background-color: rgba(255, 255, 255, 0.1); /* Fondo semitransparente para los campos de entrada */
+  color: #fff; /* Color del texto dentro de los campos de entrada */
+  border-color: #555; /* Color del borde de los campos de entrada */
+}
+
+.btn-primary {
+  background-color: #007bff; /* Color de fondo del botón */
+  border-color: #007bff;
+}
+
+.btn-primary:hover {
+  background-color: #0056b3; /* Color de fondo del botón al pasar el cursor */
+  border-color: #0056b3;
+}
