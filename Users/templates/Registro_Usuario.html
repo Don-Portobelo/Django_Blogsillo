@@ -49,13 +49,7 @@
               {% csrf_token %}
               <h2 class="form-title mb-4 col-lg-12" style="background-image:url({% static 'Imagenes/fondo-madera1.jpg' %}); color: rgb(255, 255, 255); border: 5px solid black;">
                 Registro de usuario</h2>
-              {% if messages %}
-                <div class="alert alert-info">
-                  {% for message in messages %}
-                    <p>{{ message }}</p>
-                  {% endfor %}
-                </div>
-              {% endif %}
+              
               {% for field in form %}
                 <div class="form-group forum-card">
                   <label for="{{ field.id_for_label }}">{{ field.label }}</label>

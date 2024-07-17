@@ -54,8 +54,9 @@ INSTALLED_APPS = [             #Aqui instalas las aplicaciones
      
 ]
 
-LOGIN_REDIRECT_URL = '/admin/'
+LOGIN_REDIRECT_URL = '/'
 
+LOGIN_URL = '/login/'  # Cambia a la URL de tu página de inicio de sesión
 
 MIDDLEWARE = [
     'django.middleware.security.SecurityMiddleware',

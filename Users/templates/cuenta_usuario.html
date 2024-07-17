@@ -75,6 +75,10 @@
                 <!-- Botón de configurar cuenta -->
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12 text-center">
                   <a href="{% url 'editar_perfil' %}" class="btn btn-outline-light btn-lg mb-3">Configurar cuenta</a>
+                  <form action="{% url 'logout' %}" method="post" style="display: inline;">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-block mb-3" style="display: inline; color: inherit;">Cerrar Sesión</button>
+                  </form>
                 </div>
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12 text-center">
                   
