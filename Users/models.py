@@ -26,22 +26,9 @@ class Migration(migrations.Migration):
         migrations.RunPython(add_default_last_login),
     ]
 
+from django.contrib.auth.models import BaseUserManager
 
 class UsuariosManager(BaseUserManager):
-
-    def create_superuser(self, username, email, pnombre, papellido, fecha_nacimiento, password=None):
-        user = self.create_user(
-            username=username,
-            email=email,
-            pnombre=pnombre,
-            papellido=papellido,
-            fecha_nacimiento=fecha_nacimiento,
-            password=password,
-        )
-        user.es_admin = True  # Asegura que el superusuario tenga el rol de administrador
-        user.save(using=self._db)
-        return user
-
     def create_user(self, username, email, pnombre, papellido, fecha_nacimiento, password=None):
         if not email:
             raise ValueError('Los usuarios deben tener un correo electrónico')
@@ -60,7 +47,18 @@ class UsuariosManager(BaseUserManager):
         user.save(using=self._db)
         return user
 
-    
+    def create_superuser(self, username, email, pnombre, papellido, fecha_nacimiento, password=None):
+        user = self.create_user(
+            username=username,
+            email=email,
+            pnombre=pnombre,
+            papellido=papellido,
+            fecha_nacimiento=fecha_nacimiento,
+            password=password,
+        )
+        user.es_admin = True  # Ensure es_admin is True for superusers
+        user.save(using=self._db)
+        return user
 
 class Usuarios(AbstractBaseUser):
     id_usuario = models.AutoField(primary_key=True)

@@ -50,24 +50,20 @@
                     </li>
                     
                     {% if request.user.is_authenticated %}
-                        {% if request.user.es_admin %}
-                            <!-- Si el usuario es administrador -->
+                        {% if request.user.is_staff %}
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'cuenta_admin' %}">Mi Cuenta (Admin)</a>
+                                <a class="nav-link" href="{% url 'cuenta_admin' %}">Mi Cuenta</a>
                             </li>
                         {% else %}
-                            <!-- Si el usuario no es administrador -->
                             <li class="nav-item">
-                                <a class="nav-link" href="{% url 'cuenta_usuario' %}">Mi Cuenta (Usuario)</a>
+                                <a class="nav-link" href="{% url 'cuenta_usuario' %}">Mi Cuenta</a>
                             </li>
                         {% endif %}
                     {% else %}
-                        <!-- Si el usuario no está autenticado -->
                         <li class="nav-item">
                             <a class="nav-link" href="{% url 'login' %}?next={{ request.path }}">Ingresar</a>
                         </li>
                     {% endif %}
-
                 </ul>
             </div>
         </nav>

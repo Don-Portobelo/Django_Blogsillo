@@ -17,17 +17,10 @@ class UsuarioForm(forms.ModelForm):
         fields = ['username', 'password', 'pnombre', 'snombre', 'papellido', 'sapellido', 'fecha_nacimiento', 'correo']
         widgets = {
             'password': forms.PasswordInput(),
-            'fecha_nacimiento': forms.DateInput(attrs={'type': 'date'}),
-            'correo': forms.EmailInput(attrs={'type': 'email'})
+            'fecha_nacimiento': DateInput(attrs={'type': 'date'}),
+            'correo': forms.EmailInput(attrs={'type': 'email'})  # Especifica que el campo es de tipo email
         }
 
-    def save(self, commit=True):
-        user = super().save(commit=False)
-        # Puedes realizar validaciones adicionales aquí si lo deseas
-        if commit:
-            user.save()
-        return user
-        
 class LibroForm(forms.ModelForm):
     class Meta:
         model = Libro
