@@ -26,6 +26,7 @@ class Carrito:
             self.carrito[id]["cantidad"] += 1
             self.carrito[id]["acumulado"] += libro.precio
         self.guardar_carrito()
+        
 
     def guardar_carrito(self):
         self.session["carrito"] = self.carrito
@@ -51,7 +52,35 @@ class Carrito:
         self.session.modified = True
 
     
+
+    def calcular_total(self):
+        total = sum(item['acumulado'] for item in self.carrito.values())
+        return total
+
     def crear_orden(self, usuario):
+        libros_carrito = []
+        precio_total = 0
+        nombre_items = ""
+
+        for item_id, item_data in self.carrito.items():
+            libro = Libro.objects.get(id_libro=item_data['libro_id'])
+            cantidad = item_data['cantidad']
+            subtotal = libro.precio * cantidad
+            precio_total += subtotal
+            nombre_items += f"{libro.nombre_libro} x {cantidad}, "
+
+            libros_carrito.append({
+                'libro': libro,
+                'cantidad': cantidad,
+                'subtotal': subtotal
+            })
+
+        return libros_carrito, precio_total
+
+        
+
+
+    def subir_orden(self, usuario):
         libros_carrito = []
         precio_total = 0
         nombre_items = ""
@@ -75,10 +104,10 @@ class Carrito:
             nombre_items=nombre_items,
             precio_total=precio_total,
             usuarios_id_id=usuario,
-            estado='pendiente'  # Establecer el estado de la orden a 'pendiente'
+            
         )
         orden_compra.save()
 
-     
+       
 
         return orden_compra

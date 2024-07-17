@@ -47,6 +47,14 @@ def store_clasica(request):
         return render(request, 'error.html', {'mensaje_error': mensaje_error})
 
 
+def actualizar_total_carrito(request):
+    if 'carrito' in request.session:
+        carrito = request.session['carrito']
+        total_carrito = sum(item['acumulado'] for item in carrito.values())
+    else:
+        total_carrito = 0.0
+
+    return JsonResponse({'total_carrito': total_carrito})
 
 @login_required  # Asegúrate de que el usuario esté autenticado
 def finalizar_compra(request):

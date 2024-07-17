@@ -111,7 +111,8 @@
         {% csrf_token %}
         {{ form.as_p }}
         <input type="submit" value="Guardar Libro">
-        <input type="button" value="Regresar" onclick="window.location.href='administrador.html'">
+        
+        <input type="button" value="Regresar" onclick="window.location.href = '{% url 'inicio' %}'">
     </form>
 </div>
 

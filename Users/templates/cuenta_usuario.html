@@ -66,15 +66,18 @@
                 </div>
                 <!-- Botones de historial de críticas y resúmenes -->
                 <div class="col-lg-6 col-md-8 col-sm-6 col-12 text-center">
-                  <a href="" class="btn btn-outline-light btn-lg mb-3 mr-3">Historial de críticas</a>
-                  <a href="" class="btn btn-outline-light btn-lg mb-3">Historial de resúmenes</a>
+                  <a href="{% url 'historiales_criticas' %}" class="btn btn-outline-light btn-lg mb-3 mr-3">Historial de críticas</a>
+                  <a href="{% url 'historiales_resumenes' %}" class="btn btn-outline-light btn-lg mb-3">Historial de resúmenes</a>
+                  <a href="{% url 'historial_compras' %}" class="btn btn-outline-light btn-lg mb-3 mr-3">Historial de compras</a>
+                  <a href="{% url 'publicar' %}" class="btn btn-outline-light btn-lg mb-3">Crear Publicación</a>
+                  <a href="{% url 'enviar_reporte' %}" class="btn btn-outline-light btn-lg mb-3">Crear reporte</a>
                 </div>
                 <!-- Botón de configurar cuenta -->
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12 text-center">
-                  <a href="" class="btn btn-outline-light btn-lg mb-3">Configurar cuenta</a>
+                  <a href="{% url 'editar_perfil' %}" class="btn btn-outline-light btn-lg mb-3">Configurar cuenta</a>
                 </div>
                 <div class="col-lg-3 col-md-12 col-sm-12 col-12 text-center">
-                  <a href="{% url 'enviar_reporte' %}" class="btn btn-outline-light btn-lg mb-3">Crear reporte</a>
+                  
                 </div>
               </div>
             </div>

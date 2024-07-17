@@ -34,6 +34,12 @@ urlpatterns = [
     path('admin/', users_views.cuenta_admin, name='cuenta_admin'),
     path('index/', users_views.index, name='index'),
     path('pagar/', users_views.pagar, name='pagar'),
+    path('cargar_criticas/', users_views.cargar_criticas, name='cargar_criticas'),
+    path('historiales_criticas/', users_views.Historiales_Criticas, name='historiales_criticas'),
+    path('cargar_resumenes/', users_views.cargar_resumenes, name='cargar_resumenes'),
+    path('historiales_resumenes/', users_views.Historiales_Resumenes, name='historiales_resumenes'),
+    path('cargar_compras/', users_views.cargar_compras, name='cargar_compras'),
+    path('historial_compras/', users_views.Historial_Compras, name='historial_compras'),
     path('tienda/', include('Tienda.urls')),
     path('ingresar_libro/', users_views.ingresar_libro, name='ingresar_libro'),
     path('accounts/profile/', users_views.profile, name='profile'),
@@ -50,6 +56,9 @@ urlpatterns = [
     path('resumenes_chilenas/', publicar_views.resumenes_chilenas, name='resumenes_chilenas'),
     path('resumenes_ciencia/', publicar_views.resumenes_ciencia, name='resumenes_ciencia'),
     path('publicacion/<int:id_publicacion>/', publicar_views.detalle_publicacion, name='detalle_publicacion'),
+    path('pago_exitoso/', users_views.pago_exitoso, name='pago_exitoso'),
+    path('pago_fallido/', users_views.pago_fallido, name='pago_fallido'),
+    path('pago_pendiente/', users_views.pago_pendiente, name='pago_pendiente'),
 ]
 
 

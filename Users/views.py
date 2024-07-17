@@ -5,7 +5,7 @@ from django.contrib.auth.hashers import make_password
 from django.contrib import messages
 from django.contrib.admin.views.decorators import staff_member_required  # Importar el decorador
 from django.http import JsonResponse
-
+from Publicar.models import Publicacion 
 from Tienda.Carrito import Carrito
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth import update_session_auth_hash
@@ -68,7 +68,7 @@ def editar_perfil(request):
                 user.set_password(new_password1)
             user.save()
             update_session_auth_hash(request, user)
-            return redirect('perfil')  # Redirige a una página de perfil después de la edición
+            return redirect('inicio')  # Redirige a una página de perfil después de la edición
     else:
         form = EditProfileForm(instance=request.user)
 
@@ -86,6 +86,37 @@ def cargar_reportes(request):
     return JsonResponse({'error': 'Bad request'}, status=400)
 
 
+@login_required
+def cargar_criticas(request):
+    # Filtrar las publicaciones que son críticas del usuario logueado
+    criticas = Publicacion.objects.filter(id_usuario=request.user, es_resumen=False)
+    
+    # Preparar los datos para enviar como JSON
+    data = {
+        'criticas': list(criticas.values('titulo', 'cuerpo', 'id_libro__nombre_libro', 'id_usuario__username'))
+    }
+    
+    return JsonResponse(data)
+
+@login_required
+def Historiales_Criticas(request):
+    return render(request, "Historiales_Criticas.html")
+
+@login_required
+def cargar_resumenes(request):
+    # Filtrar las publicaciones que son críticas del usuario logueado
+    criticas = Publicacion.objects.filter(id_usuario=request.user, es_resumen=True)
+    
+    # Preparar los datos para enviar como JSON
+    data = {
+        'criticas': list(criticas.values('titulo', 'cuerpo', 'id_libro__nombre_libro', 'id_usuario__username'))
+    }
+    
+    return JsonResponse(data)
+
+@login_required
+def Historiales_Resumenes(request):
+    return render(request, "Historiales_Resumenes.html")
 
 def obtener_detalles_carrito(carrito):
     detalles = []
@@ -104,6 +135,32 @@ def obtener_detalles_carrito(carrito):
         precio_total = 0
     
     return ', '.join(detalles), precio_total
+
+@login_required
+def Historial_Compras(request):
+    return render(request, "Historial_Compras.html")
+
+
+@login_required
+@login_required
+def cargar_compras(request):
+    # Obtener historial de compras del usuario actual
+    historial_compras = OrdenDeCompra.objects.filter(usuarios_id_id=request.user.id_usuario)
+
+    # Preparar datos para enviar como JSON
+    compras = []
+    for compra in historial_compras:
+        compras.append({
+            'id_compra': compra.id_compra,
+            'nro_items': compra.nro_items,
+            'nombre_items': compra.nombre_items,
+            'precio_total': compra.precio_total,
+            'estado': compra.estado,
+        })
+
+    data = {'compras': compras}
+
+    return JsonResponse(data)
 
 @login_required
 def pagar(request):
@@ -126,13 +183,13 @@ def pagar(request):
                 "description": "Libros de la compra",
                 "quantity": 1,
                 "currency_id": "CLP",
-                "unit_price": total_compra,
+                "unit_price": total_compra
             }
         ],
         "back_urls": {
-            "success": "http://localhost:8000/tienda/store_fantasia/",
-            "failure": "http://localhost:8000/tienda/store_fantasia/",
-            "pending": "http://localhost:8000/tienda/store_fantasia/"
+            "success": "http://localhost:8000/pago_exitoso/",
+            "failure": "http://localhost:8000/pago_fallido/",
+            "pending": "http://localhost:8000/pago_pendiente/"
         },
         "auto_return": "approved"
     }
@@ -145,12 +202,56 @@ def pagar(request):
         messages.error(request, "Hubo un error al procesar el pago. Por favor, inténtalo de nuevo más tarde.")
         return redirect('inicio')
 
+
+
+
+@login_required
+def pago_exitoso(request):
+    carrito = Carrito(request)
+    orden = carrito.subir_orden(request.user)
+    orden.estado = 'exitoso'
+    orden.save()
+
+    carrito.limpiar()  # Limpiar el carrito después de crear y guardar la orden
+
+    return render(request, 'resultado_pago.html', {'mensaje': 'Pago realizado con éxito. Gracias por tu compra.'})
+
+
+@login_required
+def pago_fallido(request):
+    carrito = Carrito(request)
+    orden = carrito.subir_orden(request.user)
+    orden.estado = 'fallido'
+    orden.save()
+
+    carrito.limpiar()  # Limpiar el carrito después de crear y guardar la orden
+
+    return render(request, 'resultado_pago.html', {'mensaje': 'El pago ha fallado. Por favor, inténtalo de nuevo.'})
+
+
+@login_required
+def pago_pendiente(request):
+    carrito = Carrito(request)
+    orden = carrito.subir_orden(request.user)
+    orden.estado = 'pendiente'
+    orden.save()
+
+    carrito.limpiar()  # Limpiar el carrito después de crear y guardar la orden
+
+    return render(request, 'resultado_pago.html', {'mensaje': 'Tu pago está pendiente. Te notificaremos cuando se complete.'})
+
+
+
+
+
+
+
 def ingresar_libro(request):
     if request.method == 'POST':
         form = LibroForm(request.POST, request.FILES)
         if form.is_valid():
             libro = form.save()  # Guarda el libro en la base de datos
-            return redirect('cuenta_admin', id_libro=libro.id_libro)  # Redirige a la página de detalle del libro
+            return redirect('cuenta_admin')  # Redirige a la página de detalle del libro
     else:
         form = LibroForm()
     

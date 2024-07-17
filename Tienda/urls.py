@@ -12,13 +12,14 @@ urlpatterns = [
     path('clasica/', views.store_clasica, name='store_clasica'),
     path('inicio/', inicio_views.helloworld, name='inicio'),
     path('checkout/', views.checkout, name= 'checkout'),
-   
+    path('pagar/', user_views.pagar, name= 'pagar'),
     path('finalizar_compra/', views.finalizar_compra, name= 'finalizar_compra'),
     path('login/', auth_views.LoginView.as_view(template_name='login.html'), name='login'),
     path('agregar/<int:libro_id>/', views.agregar_producto, name="Add"),
     path('eliminar/<int:libro_id>/', views.eliminar_producto, name="Del"),
     path('restar/<int:libro_id>/', views.restar_producto, name="Sub"),
     path('limpiar/', views.limpiar_carrito, name="CLS"),
+    path('actualizar_total_carrito/', views.actualizar_total_carrito, name='actualizar_total_carrito'),
 ]
 
 # Sirve los archivos estáticos en modo de desarrollo

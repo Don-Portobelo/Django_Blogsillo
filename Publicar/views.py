@@ -41,56 +41,58 @@ def detalle_publicacion(request, id_publicacion):
     }
     return render(request, 'detalle_publicacion.html', context)
 
-def criticas_fantasia(request):
-    # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
-    publicaciones = Publicacion.objects.filter(es_resumen=False, id_libro__categoria__nombre_categoria='Fantasia')
+from django.http import JsonResponse
 
+def criticas_fantasia(request):
+    publicaciones = Publicacion.objects.filter(es_resumen=False, id_libro__categoria__nombre_categoria='Fantasia')
+    print("Criticas Fantasia:", publicaciones)  # Registro de depuración
     context = {
-        'publicaciones': publicaciones
+        'publicaciones': publicaciones,
+        'titulo': 'Críticas de Fantasía'
     }
     return render(request, 'criticas_fantasia.html', context)
 
 def criticas_chilenas(request):
-    # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
     publicaciones = Publicacion.objects.filter(es_resumen=False, id_libro__categoria__nombre_categoria='Literatura Chilena')
-
+    print("Criticas Chilenas:", publicaciones)  # Registro de depuración
     context = {
-        'publicaciones': publicaciones
+        'publicaciones': publicaciones,
+        'titulo': 'Críticas de Literatura Chilena'
     }
     return render(request, 'criticas_fantasia.html', context)
 
 def criticas_ciencia(request):
-    # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
     publicaciones = Publicacion.objects.filter(es_resumen=False, id_libro__categoria__nombre_categoria='Ciencia Ficcion')
-
+    print("Criticas Ciencia Ficcion:", publicaciones)  # Registro de depuración
     context = {
-        'publicaciones': publicaciones
+        'publicaciones': publicaciones,
+        'titulo': 'Críticas de Ciencia Ficción'
     }
     return render(request, 'criticas_fantasia.html', context)
 
 def resumenes_fantasia(request):
-    # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
     publicaciones = Publicacion.objects.filter(es_resumen=True, id_libro__categoria__nombre_categoria='Fantasia')
-
+    print("Resumenes Fantasia:", publicaciones)  # Registro de depuración
     context = {
-        'publicaciones': publicaciones
+        'publicaciones': publicaciones,
+        'titulo': 'Resúmenes de Fantasía'
     }
     return render(request, 'criticas_fantasia.html', context)
 
 def resumenes_chilenas(request):
-    # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
     publicaciones = Publicacion.objects.filter(es_resumen=True, id_libro__categoria__nombre_categoria='Literatura Chilena')
-
+    print("Resumenes Chilenas:", publicaciones)  # Registro de depuración
     context = {
-        'publicaciones': publicaciones
+        'publicaciones': publicaciones,
+        'titulo': 'Resúmenes de Literatura Chilena'
     }
     return render(request, 'criticas_fantasia.html', context)
 
 def resumenes_ciencia(request):
-    # Filtrar las publicaciones que son críticas y pertenecen a libros de fantasía
     publicaciones = Publicacion.objects.filter(es_resumen=True, id_libro__categoria__nombre_categoria='Ciencia Ficcion')
-
+    print("Resumenes Ciencia Ficcion:", publicaciones)  # Registro de depuración
     context = {
-        'publicaciones': publicaciones
+        'publicaciones': publicaciones,
+        'titulo': 'Resúmenes de Ciencia Ficción'
     }
     return render(request, 'criticas_fantasia.html', context)

@@ -1,50 +1,176 @@
-<div class="alert alert-primary" role="alert">
-    <table class="table table-bordered">
-        <thead>
-            <tr>
-                <th scope="row" colspan="3" class="text-center">CARRITO</th>
-            </tr>
-            <tr>
-                <th scope="col">NOMBRE</th>
-                <th scope="col">PRECIO</th>
-                <th scope="col">CANTIDAD</th>
-            </tr>
-        </thead>
-        <tbody>
-            {% if carrito %}
-                {% for key, value in carrito.items %}
-                    <tr>
-                        <td>{{ value.nombre }}</td>
-                        <td>$ {{ value.acumulado }}</td>
-                        <td>
-                            {{ value.cantidad }}
-                            {% if value.libro_id %}
-                                <a href="{% url 'Add' value.libro_id %}" class="badge btn btn-dark badge-dark">+</a>
-                                <a href="{% url 'Sub' value.libro_id %}" class="badge btn btn-dark badge-dark">-</a>
-                            {% else %}
-                                <!-- Mostrar algún mensaje de error o manejar el caso en que libro_id está vacío -->
-                                <span class="text-danger">ID de libro no disponible</span>
-                            {% endif %}
-                        </td>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Carrito</title>
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <script>
+        function actualizarTotal() {
+            fetch('{% url "actualizar_total_carrito" %}')
+                .then(response => response.json())
+                .then(data => {
+                    document.getElementById('total-carrito').innerText = '$ ' + data.total_carrito.toFixed(2);
+                })
+                .catch(error => console.error('Error al actualizar el total del carrito:', error));
+        }
+        
+        window.onload = function() {
+            actualizarTotal();  // Llama a actualizarTotal al cargar la página
+        };
+        </script>
+    <style>
+        /* Estilos personalizados para el carrito */
+        .alert-primary {
+            background-color: #f8f9fa;
+            border-color: #cce5ff;
+            color: #004085;
+        }
 
-                    </tr>
-                {% endfor %}
-            {% else %}
+        .alert-primary h2 {
+            font-size: 1.5rem;
+            font-weight: bold;
+        }
+
+        .table {
+            margin-bottom: 0;
+        }
+
+        .table thead {
+            background-color: #343a40;
+            color: white;
+        }
+
+        .table-striped tbody tr:nth-of-type(odd) {
+            background-color: rgba(0, 0, 0, 0.05);
+        }
+
+        .table th,
+        .table td {
+            vertical-align: middle;
+            text-align: center;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .quantity-controls .btn {
+            margin: 0 5px;
+        }
+
+        .text-danger {
+            color: #dc3545 !important;
+        }
+
+        .btn-custom {
+            font-size: 0.9rem;
+            padding: 0.375rem 0.75rem;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-custom:hover {
+            background-color: #0056b3;
+            color: white;
+        }
+
+        .btn-danger {
+            background-color: #dc3545;
+            border-color: #dc3545;
+        }
+
+        .btn-danger:hover {
+            background-color: #c82333;
+            border-color: #bd2130;
+        }
+
+        .btn-success {
+            background-color: #28a745;
+            border-color: #28a745;
+        }
+
+        .btn-success:hover {
+            background-color: #218838;
+            border-color: #1e7e34;
+        }
+
+        .mt-3 {
+            margin-top: 1rem !important;
+        }
+
+        .btn-dark {
+            margin: 0 5px;
+        }
+
+        /* Estilo adicional para ajustar botones al contenido */
+        .button-container {
+            display: flex;
+            justify-content: space-between;
+            margin-top: 1rem;
+        }
+    </style>
+</head>
+<body>
+    <div class="alert alert-primary" role="alert">
+        <h2 class="text-center">CARRITO</h2>
+        <table class="table table-bordered table-striped">
+            <thead class="thead-dark">
                 <tr>
-                    <td colspan="3">
-                        <div class="alert alert-danger text-center"> Sin Productos </div>
-                    </td>
+                    <th scope="col">NOMBRE</th>
+                    <th scope="col">PRECIO</th>
+                    <th scope="col">CANTIDAD</th>
                 </tr>
-            {% endif %}
-            <tr>
-                <th scope="row">Total:</th>
-                <td colspan="2">$ {{ total_carrito }}</td>
-            </tr>
-        </tbody>
-    </table>
-    <hr>
-</div>
-<div class="row text-center">
-    <div class="col-6"><a href="{% url 'CLS' %}" class="btn btn-danger">Limpiar</a></div>
-    <div class="col-6"><a href="{% url 'finalizar_compra' %}" class="btn btn-success">Finalizar Compra</a></div>
-</div>
+            </thead>
+            <tbody>
+                {% if carrito %}
+                    {% for key, value in carrito.items %}
+                        <tr>
+                            <td>{{ value.nombre }}</td>
+                            <td>$ {{ value.acumulado }}</td>
+                            <td>
+                                <div class="quantity-controls">
+                                    {{ value.cantidad }}
+                                    {% if value.libro_id %}
+                                        <a href="{% url 'Add' value.libro_id %}" class="btn btn-sm btn-dark">+</a>
+                                        <a href="{% url 'Sub' value.libro_id %}" class="btn btn-sm btn-dark">-</a>
+                                    {% else %}
+                                        <span class="text-danger">ID de libro no disponible</span>
+                                    {% endif %}
+                                </div>
+                            </td>
+                        </tr>
+                    {% endfor %}
+                    <tr class="font-weight-bold">
+                        <th scope="row">Total:</th>
+                        <td colspan="2" id="total-carrito">$ 0</td>  <!-- Elemento donde se mostrará el total -->
+                    </tr>
+                {% else %}
+                    <tr>
+                        <td colspan="3" class="text-center">
+                            <div class="alert alert-danger">Sin Productos</div>
+                        </td>
+                    </tr>
+                {% endif %}
+            </tbody>
+            
+        </table>
+        <!-- Sección de botones -->
+        <div class="button-container mt-3">
+            <div class="col-6">
+                <a href="{% url 'CLS' %}" class="btn btn-danger btn-block btn-custom">Limpiar</a>
+            </div>
+            <div class="col-6">
+                <a href="{% url 'finalizar_compra' %}" class="btn btn-success btn-block btn-custom">Finalizar Compra</a>
+            </div>
+        </div>
+    </div>
+
+    
+
+    <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+</body>
+</html>
